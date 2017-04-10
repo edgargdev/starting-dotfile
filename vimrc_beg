@@ -1,0 +1,101 @@
+"First thing todo is install Vundle
+"this ill handle our plugin dependencies
+
+
+set nocompatible              " be iMproved, required
+
+" Puts line numbers on your editor. 
+set number
+" When in insert mode it shows number lines relative to your current position
+set relativenumber
+
+" Turns on syntax highlighting on
+syntax on
+filetype off
+
+" when splitting into another pane will default to split right
+set splitright
+
+" Load cholorscheme of your choice. Has to be located in ~/.vim/colors/
+colorscheme elflord
+" run following command `:colorscheme <TAB>` to view currently installed
+" http://vimcolors.com/
+
+" Set what you want tab space to be. 
+set tabstop=2 softtabstop=0 expandtab shiftwidth=2 smarttab
+set backspace=2
+
+" Also lets you backspace into the previous line
+set backspace=indent,eol,start
+
+" Disable Arrow keys in Escape mode
+map <up> <nop>
+map <down> <nop>
+map <left> <nop>
+map <right> <nop>
+
+" " Disable Arrow keys in Insert mode
+imap <up> <nop>
+imap <down> <nop>
+imap <left> <nop>
+imap <right> <nop>
+
+"This sets it so when I have multple panes open. The minimum size of my
+"current pane has to be 110 in this case
+set winwidth=110
+set winminwidth=40
+set winheight=30
+set winminheight=5
+	
+" Remove those annoying .swp files that I kept commiting into git
+set nobackup
+set nowritebackup
+set noswapfile
+
+
+" execute pathogen#infect()
+"" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+
+" The following are examples of different formats supported.
+" Keep Plugin commands between vundle#begin/end.
+" plugin from http://vim-scripts.org/vim/scripts.html
+Plugin 'scrooloose/nerdtree'
+Plugin 'jiangmiao/auto-pairs'
+Plugin 'ctrlpvim/ctrlp.vim' " ctrl+p inside of normal mode
+Plugin 'tpope/vim-commentary' " gcc to comment line
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+" To ignore plugin indent changes, instead use:
+"filetype plugin on
+"
+" Brief help
+" :PluginList       - lists configured plugins
+" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+"
+" see :h vundle for more details or wiki for FAQ
+
+" Always show statusline
+set laststatus=2
+
+" Use 256 colours (Use this setting only if your terminal supports 256 colours)
+set t_Co=256
+
+" ignores certain files defined in ~/.ctrpignore from showing up in fuzzy search
+" ************* You will probably will want to set this up to ignore your
+" library files like /node_modules
+" let g:ctrlp_user_command = 'find %s -type f | grep -v "`cat ~/.ctrlpignore`"'
+
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
